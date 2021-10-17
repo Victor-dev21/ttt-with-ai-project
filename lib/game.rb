@@ -4,7 +4,7 @@ require_relative './players/human'
 require_relative './players/computer'
 class Game
 	attr_accessor :board,:player_1,:player_2
-	def initialize(player_1 =Players::Human.new("X"),player_2= Player::Computer.new("O"),board=Board.new)
+	def initialize(player_1 =Players::Human.new("X"),player_2= Players::Human.new("O"),board=Board.new)
 		@player_1 = player_1
 		@player_2 = player_2
 		@board = board
@@ -52,23 +52,24 @@ class Game
 
 	def turn
      puts "Enter a number 1-9:"
-     input = current_player.move(@board)
+     input = current_player.move(@board).to_i
      if @board.valid_move?(input)
 			 #update the cell with current player token
        @board.update(input, current_player)
 			 #invalid input
 			 board.display
-		 elsif input.between?(1, 9) == false && board.taken?(input)
+		 elsif input.between?(1, 9) == false
+			 puts"#{input}"
       puts "That is an invalid move"
       turn
-    else
+			elsif board.taken?(input)
       puts "Position is taken"
       turn
     end
   end
 
+
 	 def play
-		 board.reset!
 		 @board.display
 		until(over?)
 			turn
@@ -83,7 +84,7 @@ class Game
 	def start
 		play
 	end
-
 end
-game = Game.new
-game.play
+#game = Game.new
+#game.play
+# run 'ruby lib/game.rb' in terminal
