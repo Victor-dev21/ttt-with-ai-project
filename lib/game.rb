@@ -57,14 +57,18 @@ class Game
 			 #update the cell with current player token
        @board.update(input, current_player)
 			 #invalid input
-     else puts "Enter a number 1-9:"
-       @board.display
-       turn
-     end
-     @board.display
+			 board.display
+		 elsif input.between?(1, 9) == false && board.taken?(input)
+      puts "That is an invalid move"
+      turn
+    else
+      puts "Position is taken"
+      turn
+    end
   end
 
 	 def play
+		 board.reset!
 		 @board.display
 		until(over?)
 			turn

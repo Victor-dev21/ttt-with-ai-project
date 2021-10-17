@@ -30,10 +30,9 @@ class Board
 		  cells.count{|token| token == "X" || token == "O"}
 		end
 		def taken?(index)
-			if valid_index?(index)
-			@cells[index.to_i-1] == "X" ||
-			@cells[index.to_i-1] == "O"
-			end
+			position(index) == "X" ||
+			position(index) == "O"
+			
 		end
 		# test user inpupt of 1-9
 		def valid_index?(index)
@@ -43,11 +42,11 @@ class Board
 
 
 		def valid_move?(index)
-			if(valid_index?(index))
+			valid_index?(index) && !taken?(index)
 				#if its taken return false
 				#else if its not return true
-				!taken?(index)
-		end
+
+
 	end
 
 	def input_to_index(user_input)
@@ -55,10 +54,8 @@ class Board
 			spot.to_i
 	end
 	def update(index,player)
-		if(valid_index?(index))
 			#fill with player.token once player
 			#class is created
 			cells[index.to_i-1]= player.token
 		end
 	end
-end
