@@ -4,7 +4,7 @@ require_relative '../Board'
 module Players
 	class Human < Player
 	def move(position)
-		position = gets.strip
+		position = gets
 	end
 	end
 end
